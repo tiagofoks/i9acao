@@ -2,6 +2,8 @@ const app = require('./app_config.js');
 
 const userController = require('./controller/userController.js');
 
+const payController = require('./controller/payController.js');
+
 const validator = require('validator');
 
 app.get('/', (req, res) => {
@@ -59,6 +61,59 @@ app.delete('/users/:id', (req, res) => {
 	let id = req.param('id');
 
 	userController.delete(id, (resp) => {
+		
+		res.json(resp);
+	});
+});
+
+
+
+app.get('/pays', (req, res) => {
+	
+	payController.list((resp) => {
+		
+		res.json(resp);
+	});
+});
+
+app.get('/pays/:id', (req, res) => {
+	
+	let id = validator.trim(validator.escape(req.param('id')));
+
+	payController.pay(id, (resp) => {
+		
+		res.json(resp);
+	});
+});
+
+app.post('/pays', (req, res) => {
+
+	let type = validator.trim(validator.escape(req.param('type')));
+	let paystatus = validator.trim(validator.escape(req.param('paystatus')));
+
+	payController.save(type, paystatus, (resp) => {
+		
+		res.json(resp);
+	});
+});
+
+app.put('/pays', (req, res) => {
+
+	let id = req.param('id');
+	let type = req.param('type');
+	let paystatus = req.param('paystatus')
+
+	payController.update(id, type, paystatus, (resp) => {
+		
+		res.json(resp);
+	});
+});
+
+app.delete('/pays/:id', (req, res) => {
+	
+	let id = req.param('id');
+
+	payController.delete(id, (resp) => {
 		
 		res.json(resp);
 	});
