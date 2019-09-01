@@ -1,8 +1,8 @@
-letdb = require('../db_config.js');
+let db = require('../db_config.js');
 
-exports.list = function(callback){
+exports.list = (callback) => {
 	
-	db.User.find({}, function(error, users){
+	db.User.find({}, (error, users) => {
 		
 		if(error){
 			
@@ -15,9 +15,9 @@ exports.list = function(callback){
 };
 
 
-exports.user = function(id, callback){
+exports.user = (id, callback) => {
 	
-	db.User.findById(id, function(error, user){
+	db.User.findById(id, (error, user) => {
 		
 		if(error){
 			
@@ -30,7 +30,7 @@ exports.user = function(id, callback){
 };
 
 
-exports.save = function(fullname, email, password, status, callback){
+exports.save = (fullname, email, password, status, callback) => {
 	
 	new db.User({
 
@@ -39,11 +39,11 @@ exports.save = function(fullname, email, password, status, callback){
 		'password': password,
 		'status' : status,
 		'created_at': new Date()
-	}).save(function(error, user){
+	}).save((error, user) => {
 		
 		if(error){
 			
-			callback({error:'Não foi possivel salleto usuario'});
+			callback({error:'Não foi possivel salvar o usuario'});
 		} else {
 
 			callback(user);
@@ -79,7 +79,7 @@ exports.update = (id, fullname, email, password, status, callback) => {
 		
 			if(error){
 			
-				callback({error:'Não foi possivel salleto usuario'});
+				callback({error:'Não foi possivel salvar o usuario'});
 			} else {
 
 				callback(user);
@@ -107,3 +107,5 @@ exports.delete = (id, callback) => {
 		}
 	});	
 };
+
+

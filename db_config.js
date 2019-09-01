@@ -18,4 +18,13 @@ db.once ('open', () => {
 	});
 
 	exports.User = mongoose.model('User', userSchema);
+
+	const paySchema = mongoose.Schema({
+		
+		type: Number,
+		paystatus: Boolean,
+		created_at: Date
+	});
+
+	exports.Pay = mongoose.model('Pay', paySchema);
 });
