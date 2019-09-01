@@ -4,6 +4,8 @@ const userController = require('./controller/userController.js');
 
 const payController = require('./controller/payController.js');
 
+const goalController = require('./controller/goalController.js');
+
 const validator = require('validator');
 
 app.get('/', (req, res) => {
@@ -114,6 +116,64 @@ app.delete('/pays/:id', (req, res) => {
 	let id = req.param('id');
 
 	payController.delete(id, (resp) => {
+		
+		res.json(resp);
+	});
+});
+
+app.get('/goals', (req, res) => {
+	
+	goalController.list((resp) => {
+		
+		res.json(resp);
+	});
+});
+
+app.get('/goals/:id', (req, res) => {
+	
+	let id = validator.trim(validator.escape(req.param('id')));
+
+	goalController.goal(id, (resp) => {
+		
+		res.json(resp);
+	});
+});
+
+app.post('/goals', (req, res) => {
+
+	let goalName = validator.trim(validator.escape(req.param('goalName')));
+	let goalProgress = validator.trim(validator.escape(req.param('goalProgress')));
+	let goalValue = validator.trim(validator.escape(req.param('goalValue')));
+    let investments = validator.trim(validator.escape(req.param('investments')));
+    let investValue = validator.trim(validator.escape(req.param('investValue')));
+
+
+	goalController.save(goalName, goalProgress, goalValue, investments, investValue, (resp) => {
+		
+		res.json(resp);
+	});
+});
+
+app.put('/goals', (req, res) => {
+
+	let id = req.param('id');
+	let goalName = req.param('goalName');
+	let goalProgress = req.param('goalProgress');
+	let goalValue = req.param('goalValue');
+    let investments = req.param('investments')
+    let investValue = req.param('investValue')
+
+	goalController.update(id, goalName, goalProgress, goalValue, investments, investValue, (resp) => {
+		
+		res.json(resp);
+	});
+});
+
+app.delete('/goals/:id', (req, res) => {
+	
+	let id = req.param('id');
+
+	goalController.delete(id, (resp) => {
 		
 		res.json(resp);
 	});

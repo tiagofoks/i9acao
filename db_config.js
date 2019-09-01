@@ -27,4 +27,16 @@ db.once ('open', () => {
 	});
 
 	exports.Pay = mongoose.model('Pay', paySchema);
+
+	const goalSchema = mongoose.Schema({
+		
+		goalName: String,
+		goalProgress: Buffer,
+		goalValue: Number,
+		investments: Array,
+		investValue: Number,
+		created_at: Date
+	});
+
+	exports.Goal = mongoose.model('Goal', goalSchema);
 });
